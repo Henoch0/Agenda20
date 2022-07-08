@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head" />
+<body>
+	<nav th:replace="fragments :: navigation"></nav>
+
+	<div class="container-fluid">
+		<div class="row justify-content-center bg-white text-center">
+			<div class="col-12">
+				<h4 class="display-4">Profil&uuml;bersicht</h4>
+
+				<div class="avatar-wrapper">
+					<img class="profile-pic upload-button" src="" /> <input
+						class="file-upload" type="file" />
+				</div>
+				<div>
+					<div class="card mx-auto" style="width: 18rem;">
+
+						<p>
+							Username: <a th:text="${user.name} "> </a>
+						<p>Passwort:</p>
+						<button class="btn btn-secondary" data-toggle="modal"
+							data-target="#exampleModalCenter">&Auml;ndern</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalCenterTitle"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Neue
+							Eingabedaten</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<form th:action="@{/changeUserData}" th:object="${user}"
+							method="post">
+							<div class="form-group row">
+								<label for="text-message" class="col-sm-2 col-form-label">Username</label>
+								<div class="col-sm-10">
+									<input th:field="*{name}" class="form-control">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="staticEmail" class="col-sm-2 col-form-label">Passwort</label>
+								<div class="col-sm-10">
+									<input th:field="*{password}" class="form-control" placeholder="Passwort">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Save
+									changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<th:block th:replace="fragments :: scripts">
+</body>
+</html>

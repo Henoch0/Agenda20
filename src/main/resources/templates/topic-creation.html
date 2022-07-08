@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head" />
+<body>
+	<nav th:replace="fragments :: navigation"></nav>
+
+	<div class="container-fluid">
+		<div class="row justify-content-center bg-white">
+			<div class="col-12">
+				<h4 class="display-4">Neues Topic erstellen</h4>
+
+				<form th:action="@{/topics}" th:object="${newTopic}"
+					method="post">
+
+					<div class="form-group row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">Titel</label>
+						<div class="col-sm-10">
+						<input th:field="*{title}" class="form-control"
+							placeholder="" minlength="10" maxlength="60" /> <small class="form-text text-muted">
+							Verwenden Sie einen aussagekräftigen Titel! (min. 10 & max. 60 Zeichen)</small>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">Kurzbeschreibung</label>
+						<div class="col-sm-10">
+						<input th:field="*{shortDescription}" class="form-control"
+							placeholder="" minlength="10" maxlength="100" /> <small class="form-text text-muted">
+							Beschreiben Sie kurz den Kurs. (min. 10 & max. 100 Zeichen)</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">Langbeschreibung</label>
+						<div class="col-sm-10">
+						<input th:field="*{longDescription}" class="form-control largeInput"
+							placeholder="" minlength="30" maxlength="200" /> <small class="form-text text-muted">
+							Geben zusätzliche Informationen an (min. 30 & max. 200 Zeichen)</small>
+						</div>
+					</div>
+					
+					
+
+					<button type="submit" class="btn btn-primary">Erstellen!</button>
+					<a href="/topics" class="btn btn-danger">Abbrechen</a>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<th:block th:replace="fragments :: scripts">
+</body>
+</html>

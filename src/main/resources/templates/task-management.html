@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head" />
+<body>
+	<nav th:replace="fragments :: navigation"></nav>
+
+
+	<div class="container-fluid">
+		<div class="row justify-content-center bg-white">
+			<div class="col-12">
+				<h4 class="display-4">
+					Task &auml;ndern f&uuml;r <i th:text="${task.title}">Titel</i>
+				</h4>
+
+				<form th:action="@{/tasks/{id}/manage(id=${task.id})}"
+					th:object="${task}" method="post">
+
+					<div class="form-group row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">Kurzbeschreibung</label>
+						<div class="col-sm-10">
+							<input th:field="*{ShortDescription}" class="form-control"
+								placeholder="" minlength="10" maxlength="100" /> <small
+								class="form-text text-muted"> Geben sie hier eine kurze
+								Beschreibung an</small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">Langbeschreibung</label>
+						<div class="col-sm-10">
+							<input th:field="*{LongDescription}" class="form-control"
+								placeholder="" minlength="30" maxlength="200" /> <small
+								class="form-text text-muted"> Geben sie hier weitere
+								Informationen an</small>
+						</div>
+					</div>
+
+
+					<button type="submit" class="btn btn-primary">Speichern</button>
+					<a th:href="'/topics/'+${task.topic.uuid}+'/manage'"
+						class="btn btn-danger">Zur&uuml;ck</a>
+				</form>
+			</div>
+		</div>
+
+		<h1 class="display-4">Kommentare</h1>
+		<ul class="list-group" th:each="status : ${status}">
+			<li class="list-group-item" th:if="${status.comment.isEmpty()}">Keine Kommentar vorhanden</li>
+			<li class="list-group-item" th:unless="${status.comment.isEmpty()}"
+				th:text="${status.comment}"></li>
+		</ul>
+	</div>
+	<th:block th:replace="fragments :: scripts">
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head" />
+<body>
+	<nav th:replace="fragments :: navigation"></nav>
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-8">
+				<h4 class="display-4">
+					Eigene Topics <a href="/topics/create" class="btn btn-primary">Topic
+						erstellen</a>
+				</h4>
+				<span th:if="${#lists.size(managedTopics)==0}">Sie haben
+					keine Topics erstellt!</span>
+			</div>
+			<div class="col-4">
+				<form th:object="${search}" th:action="@{/topics}" method="get">
+					<div style="display: inline-block;" class="form-group">
+						<input th:field="*{search}" class="form-control"
+							placeholder=" Suche nach..." />
+					</div>
+					<button type="submit" class="btn btn-secondary">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		<div class="row row-cols-1 row-cols-md-3">
+			<div class="col mb-4" th:each="t : ${managedTopics}">
+				<div class="card h-100 ">
+					<div class="card-body flex-column">
+						<h5 style="display: inline-block;" class="card-title"
+							th:text="${t.title}+ '('+${t.key}+')'">Card title</h5>
+						<h6 class="card-subtitle mb-2 text-muted"
+							th:text="'Abonnements: '+${t.countSubscriber}">Card subtitle</h6>
+						<p class="card-text" th:text="${t.ShortDescription}">Card text</p>
+						<a style="display: inline-block"
+							th:href="'/subscribers/'+${t.uuid}">
+							<button class="btn btn-secondary mt-auto" type="submit">
+								Abo-Liste</button>
+
+						</a> <a id="cog" style="display: inline-block"
+							th:href="'/topics/'+${t.uuid}+'/manage'">
+							<button class="btn mt-auto" type="submit">
+								<span style="font-size: 1.5em; color: blue;"> <i
+									class="fas fa-cog"></i>
+								</span>
+							</button>
+
+						</a>
+						<form id="flex" th:action="'/topics/'+${t.uuid}+'/delete'"
+							method="post">
+							<button class="btn mt-auto" type="submit">
+								<span style="font-size: 1.5em; color: red;"> <i
+									class="fas fa-trash"></i>
+								</span>
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center ">
+			<div class="col-12">
+				<h4 class="display-4">Abonnierte Topics</h4>
+				<span th:if="${#lists.size(topics)==0}">Sie haben keine Topics abonniert!</span>
+			</div>
+		</div>
+		<div class="row row-cols-1 row-cols-md-3 ">
+			<div class="col mb-4" th:each="t : ${topics}">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${t.title}">Card title</h5>
+						<h6 class="card-subtitle mb-2 text-muted"
+							th:text="'Von '+${t.creator.displayName}">Card subtitle</h6>
+						<p class="card-text" th:text="${t.ShortDescription}">Card text</p>
+						<a th:href="'/topics/'+${t.uuid}" class="btn btn-primary">Öffnen</a>
+						<a th:href="'/topics/'+${t.uuid}+'/unregister'"
+							class="btn btn-danger">Entfernen</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<th:block th:replace="fragments :: scripts">
+</body>
+</html>

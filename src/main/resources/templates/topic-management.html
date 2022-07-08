@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head" />
+<body>
+	<nav th:replace="fragments :: navigation"></nav>
+
+	<div class="container-fluid">
+		<div class="row justify-content-center bg-white">
+			<div class="col-12">
+				<h4 class="display-4">
+					Ihr Topic <i th:text="${topic.title}"></i> <a
+						th:href="'/topics/'+${topic.uuid}+'/createTask'"
+						class="btn btn-primary">Task erstellen</a>
+				</h4>
+				<form id="formName"
+					th:action="@{/topics/{uuid}/manage(uuid=${topic.uuid})}"
+					th:object="${topic}" method="post">
+					<div class="form-group row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">Kurzbeschreibung</label>
+						<div class="col-sm-10">
+							<input th:field="*{ShortDescription}" class="form-control"
+								placeholder="" minlength="10" maxlength="100" /> <small
+								class="form-text text-muted"> Geben sie hier eine kurze
+								Beschreibung an</small>
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">Langbeschreibung</label>
+						<div class="col-sm-10">
+							<input th:field="*{LongDescription}" class="form-control"
+								placeholder="" minlength="30" maxlength="200" /> <small
+								class="form-text text-muted"> Geben sie hier weitere
+								Informationen an</small>
+						</div>
+					</div>
+					<div class="text-left">
+						<button type="submit" class="btn btn-primary">Speichern</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6" th:each="t : ${tasks}">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${t.title}">Card title</h5>
+						<p class="card-text deadline" th:text="${t.deadline}">Card
+							text</p>
+						<p class="card-text" th:text="${t.shortDescription}">Card text</p>
+						<a th:href="'/tasks/'+${t.id}+'/manage'" class="btn btn-primary">Verwalten</a>
+						<form id="flex" th:action="'/tasks/'+${t.id}+'/delete'"
+							method="post">
+							<button class="btn btn-danger" type="submit">L&ouml;schen</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:replace="fragments :: scripts">
+</body>
+</html>

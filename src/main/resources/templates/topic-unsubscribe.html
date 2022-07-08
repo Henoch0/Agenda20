@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head" />
+<body>
+	<nav th:replace="fragments :: navigation"></nav>
+
+	<div class="container-fluid">
+		<div class="row justify-content-center bg-white">
+			<div class="col-12">
+				<h4 class="display-4">
+					Topic <i th:text=${topic.title}></i> de-abonnieren
+				</h4>
+
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${topic.title}">Card title</h5>
+						<h6 class="card-subtitle mb-2 text-muted"
+							th:text="'Von '+${topic.creator.displayName}">Card subtitle</h6>
+						<p class="card-text" th:text="${topic.ShortDescription}">Card
+							text</p>
+						<form th:action="'/topics/'+${topic.uuid}+'/unregister'"
+							method="post">
+							<button type="submit" class="btn btn-primary">De-abonnieren</button>
+							<a href="/topics" class="btn btn-danger">Zur&uuml;ck</a>
+
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<th:block th:replace="fragments :: scripts">
+</body>
+</html>

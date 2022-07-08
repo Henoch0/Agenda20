@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head" />
+<body>
+	<nav th:replace="fragments :: navigation"></nav>
+
+	<div class="container-fluid">
+		<div class="row justify-content-center bg-white">
+			<div class="col-12">
+				<h4 style="text-align: center;" class="display-4">Subscriber&uuml;bersicht</h4>
+
+			</div>
+		</div>
+		<div class="row justify-content-center bg-white">
+			<div class="col-8">
+				<table class="table">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">Tasks</th>
+						</tr>
+					</thead>
+					<tr th:each="user : ${subscribers}">
+
+						<td th:text="${user.name} " />
+						<td th:text="${user.completedTasks} " />
+
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<th:block th:replace="fragments :: scripts">
+</body>
+</html>
