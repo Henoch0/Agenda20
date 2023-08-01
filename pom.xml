@@ -17,10 +17,6 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<sonar.host.url>http://217.160.212.83</sonar.host.url>
-		<sonar.projectName>GRP25</sonar.projectName>
-		<sonar.login>b20a2032ff7d06ae2c4de941a1e8a07bd116e033</sonar.login>
-		<sonar.projectKey>GRP25</sonar.projectKey>
 	</properties>
 
 	<dependencies>
